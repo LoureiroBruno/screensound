@@ -11,10 +11,11 @@ public class Artista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String nome;
     @Enumerated(EnumType.STRING)
     private TipoArtista tipo;
-    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "artista")
     private List<Musica> musicas = new ArrayList<>();
 
     public Artista(Long id, String nome, TipoArtista tipo, List<Musica> musicas) {
@@ -59,5 +60,13 @@ public class Artista {
     public void adicionarMusica(Musica m) {
         musicas.add(m);
         m.setArtista(this);
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Artista='" + nome + '\''+
+                        ", tipo=" + tipo +
+                        ", musicas=" + musicas;
     }
 }
