@@ -22,8 +22,9 @@ public class Principal {
                     3- Listar músicas
                     4- Buscar músicas por artistas
                     5- Pesquisar dados sobre um artista
-                                    
+                    _____________________________________________________         
                     9 - Sair
+                    -----------------------------------------------------
                     """;
             System.out.println(menu);
             opcao = leitura.nextInt();
