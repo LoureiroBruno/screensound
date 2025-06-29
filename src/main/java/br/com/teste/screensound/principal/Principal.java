@@ -1,9 +1,12 @@
 package br.com.teste.screensound.principal;
 
 import br.com.teste.screensound.model.Artista;
+import br.com.teste.screensound.model.Musica;
 import br.com.teste.screensound.model.TipoArtista;
 import br.com.teste.screensound.repository.ArtistaRepository;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Principal {
@@ -75,9 +78,35 @@ public class Principal {
     }
 
     private void cadastrarMusicas() {
+        var cadastrarNovo = "S";
+
+        while (cadastrarNovo.equalsIgnoreCase("s")) {
+            System.out.println("Cadastrar música de que artista? ");
+            var nome = leitura.nextLine();
+
+            Optional<Artista> artista = repositorio.findByNomeContainingIgnoreCase(nome);
+
+            if (artista.isPresent()) {
+                System.out.println("Qual o nome da música? ");
+                var nomeMusica = leitura.nextLine();
+
+                Musica musica = new Musica(nomeMusica);
+                musica.setArtista(artista.get());
+                artista.get().getMusicas().add(musica);
+                repositorio.save(artista.get());
+
+                System.out.println("Cadastrar outra musica? (S/N)");
+                cadastrarNovo = leitura.nextLine();
+
+            } else {
+                System.out.println("Artista não encontrado");
+            }
+        }
     }
 
     private void listarMusicas() {
+        List<Artista> artistas = repositorio.findAll();
+        artistas.forEach(System.out::println);
     }
 
     private void buscarMusicasPorArtista() {

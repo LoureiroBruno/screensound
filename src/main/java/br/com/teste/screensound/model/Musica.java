@@ -15,6 +15,11 @@ public class Musica {
     @JoinColumn(name = "artista_id")
     private Artista artista;
 
+    public Musica() {}
+
+    public Musica(String titulo) {
+        this.titulo = titulo;
+    }
 
     public Long getId() {
         return id;
@@ -46,5 +51,14 @@ public class Musica {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    @Override
+    public String toString() {
+        return "Musica{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", duracaoSegundos=" + duracaoSegundos +
+                '}';
     }
 }
