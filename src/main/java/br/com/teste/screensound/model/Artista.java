@@ -17,11 +17,11 @@ public class Artista {
     @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Musica> musicas = new ArrayList<>();
 
-    public Artista(Long id, String nome, TipoArtista tipo, List<Musica> musicas) {
-        this.id = id;
+    public Artista() {}
+
+    public Artista(String nome, TipoArtista tipo) {
         this.nome = nome;
         this.tipo = tipo;
-        this.musicas = musicas;
     }
 
     public Long getId() {

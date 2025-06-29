@@ -1,5 +1,7 @@
 package br.com.teste.screensound.principal;
 
+import br.com.teste.screensound.model.Artista;
+import br.com.teste.screensound.model.TipoArtista;
 import br.com.teste.screensound.repository.ArtistaRepository;
 
 import java.util.Scanner;
@@ -7,8 +9,10 @@ import java.util.Scanner;
 public class Principal {
 
     private Scanner leitura = new Scanner(System.in);
+    private final ArtistaRepository repositorio;
     
     public Principal(ArtistaRepository repositorio) {
+        this.repositorio = repositorio;
     }
 
     public void exibeMenu() {
@@ -54,19 +58,32 @@ public class Principal {
         }
     }
 
-    private void pesquisarDadosDoArtista() {
+    private void cadastrarArtistas() {
+        var cadastrarNovo = "S";
 
-    }
-
-    private void buscarMusicasPorArtista() {
-    }
-
-    private void listarMusicas() {
+        while (cadastrarNovo.equalsIgnoreCase("s")) {
+            System.out.println("Informe o nome desse artista: ");
+            var nome = leitura.nextLine();
+            System.out.println("Informe o tipo desse artista: (solo, dupla ou banda)");
+            var tipo = leitura.nextLine();
+            TipoArtista tipoArtista = TipoArtista.valueOf(tipo.toUpperCase());
+            Artista artista = new Artista(nome, tipoArtista);
+            repositorio.save(artista);
+            System.out.println("Cadastrar novo artista? (S/N)");
+            cadastrarNovo = leitura.nextLine();
+        }
     }
 
     private void cadastrarMusicas() {
     }
 
-    private void cadastrarArtistas() {
+    private void listarMusicas() {
     }
+
+    private void buscarMusicasPorArtista() {
+    }
+
+    private void pesquisarDadosDoArtista() {
+    }
+
 }
